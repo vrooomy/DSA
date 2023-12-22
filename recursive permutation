@@ -1,0 +1,109 @@
+class Solution {
+public:
+    void solve( vector <int> a, vector <vector <int>> & ans , int idx)
+    {
+        // base
+        if(idx >= a.size())
+        {
+            ans.push_back(a);
+            return;
+
+        }
+        
+        for(int i = idx; i<a.size();i++)
+        {
+            swap(a[idx], a[i]);
+            solve(a, ans , idx +1);
+            swap (a[idx], a[i]);
+        }
+
+
+    }
+
+    int fact(int k)
+    {
+        if(k==1)
+        return 1;
+
+        else
+        return k * fact(k-1);
+
+    }
+
+
+    string getPermutation(int n, int k) {
+
+        vector <int> a;
+
+        for(int i=1;i<=n;i++)
+        {
+            a.push_back(i);
+        }
+
+        // for(auto it:a)
+        // cout << it << "--";
+
+        // return "";
+        
+
+        vector < vector <int>> ans;
+        int idx =1,tk=k;
+        int total = fact(n);
+        int per = total/n;
+
+
+
+
+
+        cout << per << endl;
+        
+        int swapper = k/per;
+
+        if(k%per==0)
+        swapper--;
+
+        cout << "set--" << swapper << endl;
+
+        
+        swap(a[0],a[(swapper)]);
+        solve( a, ans , idx);
+        string ansf="";
+
+        sort(ans.begin(),ans.end());
+
+
+        for(auto it:ans)
+        {
+            for(auto itt:it)
+           cout << itt ;
+
+           cout <<"\n";
+
+        }
+
+        int req= k%per;
+
+        if(req==0)
+        {
+
+            vector <int> hello = ans[ans.size()-1];
+            for(auto & it: hello)
+        {
+           ansf += (char)(it+48);
+
+        }
+        }
+    else
+    {
+        for(auto it:ans[req-1])
+        {
+           ansf += (char)(it+48);
+
+        }
+    }
+
+        
+
+        return ansf;
+    }
+};
